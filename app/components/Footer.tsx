@@ -10,12 +10,12 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <h3 className="font-bold text-lg mb-3">Fyrecart</h3>
             <p className="text-gray-400 text-sm mb-3">
-              Premium tech gadgets and electronics at wholesale prices. Fast delivery worldwide.
+              Hottest tech deals in wholesale. Explosive prices, lightning-fast European shipping.
             </p>
             <div className="text-gray-400 text-sm space-y-1">
               <p>info@fyrecart.com</p>
-              <p>67 Aleksanterinkatu</p>
-              <p>Helsinki 00100, Finland</p>
+              <p>Herengracht 182</p>
+              <p>1016 BR Amsterdam, Netherlands</p>
             </div>
           </div>
 
@@ -49,10 +49,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-gray-500">
-          <p>&copy; {year} Fyrecart Oy. All rights reserved.</p>
+          <p>&copy; {year} Fyrecart B.V. All rights reserved.</p>
           <div className="flex gap-4">
-            <span>VAT: FI 12345678</span>
-            <span>Registered in Finland</span>
+            <span>VAT: NL 859132847B01</span>
+            <span>Registered in Netherlands</span>
           </div>
         </div>
       </div>

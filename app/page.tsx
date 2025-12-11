@@ -1,110 +1,163 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const hotDeals = [
+    { name: "Wireless Earbuds Pro", discount: "35%", original: "€89", now: "€57.85", badge: "HOT" },
+    { name: "Power Bank 20000mAh", discount: "28%", original: "€45", now: "€32.40", badge: "FIRE" },
+    { name: "Smart Watch Series X", discount: "40%", original: "€120", now: "€72", badge: "BLAZING" },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % hotDeals.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [hotDeals.length]);
+
   return (
     <div className="bg-white">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <span className="text-yellow-400 text-sm font-medium">Wholesale Tech Supplier</span>
-              <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-5">
-                Premium Tech, <span className="text-yellow-400">Best Prices</span>
-              </h1>
-              <p className="text-gray-300 text-lg mb-8">
-                Quality electronics and gadgets for businesses and individuals.
-                Worldwide delivery in 24/48h, payment on delivery.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/products" className="px-6 py-3 bg-yellow-600 hover:bg-yellow-500 text-white font-medium rounded-lg">
-                  View Products
-                </Link>
-                <Link href="/contact" className="px-6 py-3 border border-gray-500 hover:border-gray-400 text-white font-medium rounded-lg">
-                  Get Quote
-                </Link>
-              </div>
+      {/* Hero - Fire Theme */}
+      <section className="bg-gradient-to-br from-orange-600 via-red-600 to-yellow-500 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTRWMjhIMjR2MmgxMnptLTgtMTBoMnYyaC0ydi0yem0wIDRoMnYyaC0ydi0yem0wIDRoMnYyaC0ydi0yeiIvPjwvZz48L2c+PC9zdmc+')] opacity-20"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-4 py-2 rounded-full text-sm mb-6">
+              <span className="text-xl">🔥</span>
+              Hot Deals Every Week
             </div>
-            <div className="hidden md:flex justify-center">
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { n: "2,600+", l: "Products" },
-                  { n: "450+", l: "Customers" },
-                  { n: "5", l: "Years" },
-                  { n: "24/48h", l: "Delivery" },
-                ].map((s, i) => (
-                  <div key={i} className="p-5 bg-gray-800/50 rounded-xl text-center">
-                    <div className="text-2xl font-bold text-yellow-400">{s.n}</div>
-                    <div className="text-gray-400 text-sm">{s.l}</div>
-                  </div>
-                ))}
-              </div>
+            <h1 className="text-4xl md:text-6xl font-black mb-4">
+              IGNITE YOUR<br />INVENTORY
+            </h1>
+            <p className="text-orange-100 text-lg mb-8">
+              Wholesale tech at burning hot prices. New deals drop weekly.
+              European shipping from Amsterdam in 24-48 hours.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/products" className="px-8 py-4 bg-white text-orange-600 font-bold rounded-lg hover:bg-orange-50 shadow-lg">
+                🔥 Shop Hot Deals
+              </Link>
+              <Link href="/contact" className="px-8 py-4 bg-orange-700/50 backdrop-blur text-white font-bold rounded-lg hover:bg-orange-700/70">
+                Get Trade Pricing
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mobile Stats */}
-      <section className="md:hidden py-8 bg-yellow-50">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-4 gap-2 text-center">
+      {/* Hot Deals Carousel */}
+      <section className="py-12 bg-gray-900">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              <span className="text-2xl">🔥</span> This Week&apos;s Hot Deals
+            </h2>
+            <div className="flex gap-2">
+              {hotDeals.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentSlide(i)}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    currentSlide === i ? "bg-orange-500" : "bg-gray-600"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl">
+            <div
+              className="flex transition-transform duration-500"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {hotDeals.map((deal, i) => (
+                <div key={i} className="w-full flex-shrink-0 bg-gradient-to-r from-orange-500 to-red-500 p-8 rounded-2xl">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                      <span className="inline-block px-3 py-1 bg-yellow-400 text-yellow-900 font-bold text-sm rounded-full mb-3">
+                        {deal.badge} SALE
+                      </span>
+                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{deal.name}</h3>
+                      <div className="flex items-center gap-4">
+                        <span className="text-white/60 line-through text-lg">{deal.original}</span>
+                        <span className="text-3xl font-black text-white">{deal.now}</span>
+                        <span className="bg-white/20 px-3 py-1 rounded-full text-white font-bold">-{deal.discount}</span>
+                      </div>
+                    </div>
+                    <Link href="/products" className="px-8 py-4 bg-white text-orange-600 font-bold rounded-lg hover:bg-orange-50 shadow-lg whitespace-nowrap">
+                      Grab Deal →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Strip */}
+      <section className="py-8 bg-yellow-400">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           {[
-            { n: "2,600+", l: "Products" },
-            { n: "450+", l: "Customers" },
-            { n: "5", l: "Years" },
-            { n: "24/48h", l: "Delivery" },
-          ].map((s, i) => (
+            { value: "2,900+", label: "Hot Products" },
+            { value: "500+", label: "Active Buyers" },
+            { value: "40%", label: "Avg. Savings" },
+            { value: "24h", label: "EU Shipping" },
+          ].map((stat, i) => (
             <div key={i}>
-              <div className="text-lg font-bold text-yellow-600">{s.n}</div>
-              <div className="text-gray-600 text-xs">{s.l}</div>
+              <div className="text-2xl md:text-3xl font-black text-orange-900">{stat.value}</div>
+              <div className="text-sm text-orange-700">{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Categories */}
-      <section className="py-16 md:py-20">
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900">Product Categories</h2>
-            <p className="text-gray-600 mt-2">Browse our wholesale tech range</p>
-          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Shop by Category</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {[
-              { e: "🔊", n: "Speakers", h: "/products#speakers" },
-              { e: "🎧", n: "Audio", h: "/products#audio" },
-              { e: "🔋", n: "Power", h: "/products#power" },
-              { e: "⌚", n: "Wearables", h: "/products#wearables" },
-              { e: "📱", n: "Accessories", h: "/products#accessories" },
-              { e: "🔌", n: "Cables", h: "/products#cables" },
-            ].map((c, i) => (
-              <Link key={i} href={c.h} className="p-4 bg-gray-50 rounded-xl text-center hover:bg-yellow-50 hover:ring-2 hover:ring-yellow-200 transition-all">
-                <div className="text-3xl mb-2">{c.e}</div>
-                <div className="text-sm font-medium text-gray-800">{c.n}</div>
+              { icon: "🔥", name: "On Fire", desc: "Trending now" },
+              { icon: "❄️", name: "Cool Tech", desc: "New arrivals" },
+              { icon: "⚡", name: "Flash Deals", desc: "24h only" },
+              { icon: "💎", name: "Premium", desc: "Top quality" },
+              { icon: "📦", name: "Bulk Packs", desc: "Best value" },
+              { icon: "🎯", name: "Clearance", desc: "Last chance" },
+            ].map((cat, i) => (
+              <Link
+                key={i}
+                href={`/products#${cat.name.toLowerCase().replace(' ', '-')}`}
+                className="p-5 bg-gray-50 rounded-xl text-center hover:bg-orange-50 hover:ring-2 hover:ring-orange-200 transition-all group"
+              >
+                <div className="text-4xl mb-2 group-hover:scale-110 transition-transform">{cat.icon}</div>
+                <div className="font-bold text-gray-900">{cat.name}</div>
+                <div className="text-xs text-gray-500">{cat.desc}</div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Us */}
-      <section className="py-16 md:py-20 bg-gray-900 text-white">
+      {/* Features */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-10">Why Fyrecart?</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">The Fyrecart Heat</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { t: "Worldwide Delivery", d: "Fast shipping in 24/48h to countries worldwide. Costs vary by destination." },
-              { t: "Pay on Delivery", d: "No upfront payment. Inspect products before paying." },
-              { t: "Volume Discounts", d: "Competitive wholesale pricing with bulk discounts." },
-              { t: "Quality Tested", d: "Every product checked before shipping." },
+              { icon: "🗓️", title: "Weekly Fire Sales", desc: "New hot deals every Monday" },
+              { icon: "⏰", title: "Early Bird Access", desc: "Members get 24h head start" },
+              { icon: "📊", title: "Price Alerts", desc: "Get notified when prices drop" },
+              { icon: "🚚", title: "Fast EU Delivery", desc: "Amsterdam warehouse, 24-48h" },
             ].map((f, i) => (
-              <div key={i} className="p-5 bg-gray-800 rounded-xl">
-                <div className="w-8 h-8 bg-yellow-600 rounded-lg flex items-center justify-center mb-3">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold mb-1">{f.t}</h3>
-                <p className="text-gray-400 text-sm">{f.d}</p>
+              <div key={i} className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="text-3xl mb-3">{f.icon}</div>
+                <h3 className="font-bold text-gray-900 mb-1">{f.title}</h3>
+                <p className="text-sm text-gray-600">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -112,14 +165,16 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-yellow-600">
+      <section className="py-16 bg-gradient-to-r from-orange-500 to-red-500">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Order?</h2>
-          <p className="text-yellow-100 mb-8">Contact us for a personalised quote. No minimum for first orders.</p>
-          <Link href="/contact" className="inline-block px-8 py-3 bg-white text-yellow-600 font-semibold rounded-lg hover:bg-yellow-50">
-            Request Quote
+          <h2 className="text-3xl font-black text-white mb-4">🔥 Ready to Ignite Your Business?</h2>
+          <p className="text-orange-100 mb-8">
+            Join 500+ retailers who save big with Fyrecart. No minimum order for new accounts.
+          </p>
+          <Link href="/contact" className="inline-block px-10 py-4 bg-white text-orange-600 font-bold rounded-lg hover:bg-orange-50 shadow-lg">
+            Get Started Today
           </Link>
-          <p className="text-yellow-200 text-sm mt-4">Or email info@fyrecart.com</p>
+          <p className="text-orange-200 text-sm mt-4">info@fyrecart.nl | Free shipping on €200+ orders</p>
         </div>
       </section>
     </div>

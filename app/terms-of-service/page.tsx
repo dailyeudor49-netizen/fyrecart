@@ -91,13 +91,13 @@ export default function TermsOfServicePage() {
             <div>
               <h2 className="text-xl font-bold text-gray-900 mb-3">10. Contact Information</h2>
               <p className="text-gray-600">
-                Fyrecart Oy<br />
-                67 Aleksanterinkatu<br />
-                Helsinki 00100<br />
-                Finland<br />
-                Email: info@fyrecart.com<br />
-                VAT: FI 12345678<br />
-                Registered in Finland
+                Fyrecart B.V.<br />
+                Herengracht 182<br />
+                1016 BR Amsterdam<br />
+                Netherlands<br />
+                Email: info@fyrecart.nl<br />
+                VAT: NL 859132847B01<br />
+                Registered in Netherlands
               </p>
             </div>
           </div>
